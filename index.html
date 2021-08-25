@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<title>Agregore Chat Example</title>
+<style>
+	@import url("./style.css")
+</style>
+
+<template id="messageTemplate">
+	<dl class="message">
+		<dt class="message-username">Anonymous</dt>
+		<dd class="message-text">Hello World?</dd>
+	</dl>
+</template>
+
+<dialog id="urlPrompt" open>
+  Enter the hyper:// URL for your chat.
+	<form method="dialog">
+		<input id="chatURLInput" value="hyper://blog.mauve.moe/">
+		<button>Load</button>
+	</form>
+</dialog>
+
+<dialog id="namePrompt">
+  Enter the name you'd like to use
+	<form method="dialog">
+		<input id="chatNameInput" value="Anonymous">
+		<button>Save</button>
+	</form>
+</dialog>
+
+<main>
+	<section id="historyBox" aria-live="polite"></section>
+	<form id="inputForm">
+		<input id="textInput" placeholder="Enter your message here">
+		<button>Send</button>
+	</form>
+	<button id="nameChangeButton">Anonymous</button>
+</main>
+
+<script type="module" src="scripts.js"></script>

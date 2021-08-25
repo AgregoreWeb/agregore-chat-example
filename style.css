@@ -1,0 +1,88 @@
+:root {
+	--theme-shadow: 0.5em 0.5em 0.5em rgba(0,0,0,0.1),  -0.25em -0.25em 0.5em rgba(0,0,0,0.1);
+	--theme-padding: 0.5em;
+	--theme-white: #F2F2F2;
+	--theme-primary: #6e2de5;
+}
+
+html, body {
+	margin: 0px;
+	padding:0px;
+	width: 100%;
+	height: 100%;
+	background: var(--theme-white);
+	font-family: system-ui, Arial;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+	padding: var(--theme-padding);
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
+
+#nameChangeButton {
+	position: absolute;
+	top: var(--theme-padding);
+	right: var(--theme-padding);
+}
+
+#historyBox {
+	flex: 1;
+	overflow-y: auto;
+	padding: var(--theme-padding);
+	box-shadow: var(--theme-shadow);
+	background: white;
+}
+
+input {
+	flex: 1;
+	box-shadow: var(--theme-shadow);
+  border: none;
+	font: inherit;
+  margin-right: 0.25em;
+	padding: var(--theme-padding);
+	background: white;
+}
+
+button {
+	background: var(--theme-primary);
+	color: var(--theme-white);
+	border: none;
+	font: inherit;
+	box-shadow: var(--theme-shadow);
+	padding: var(--theme-padding);
+}
+
+form {
+  display: flex;
+	padding: var(--theme-padding);
+}
+
+dialog {
+	border: none;
+	box-shadow: var(--theme-shadow);
+}
+
+dialog::backdrop {
+	background: rgba(0,0,0,0.1);
+}
+
+.message-system {
+	color: var(--theme-primary);
+	font-weight: bold;
+}
+
+.message-username {
+  font-weight: bold;
+}
+
+.message-self .message-username {
+	color: var(--theme-primary);
+}
+
+dd {
+  margin-inline-start: 1em;
+}
