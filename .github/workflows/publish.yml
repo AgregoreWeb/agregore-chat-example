@@ -1,0 +1,26 @@
+name: Publish To Hyper
+
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  release:
+    types: [published]
+    tags:
+      - 'v*'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14'
+      # Runs a single command using the runners shell
+      - name: Run Publisher
+        run: npx hyperdrive-publisher sync ${{ secrets.PUBLISHER_KEY }} --tag ${{ github.event.release.tag_name }}
