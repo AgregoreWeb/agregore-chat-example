@@ -79,7 +79,7 @@ dialog::backdrop {
   font-weight: bold;
 }
 
-.message-self .message-username {
+.message-local .message-username {
 	color: var(--theme-primary);
 }
 

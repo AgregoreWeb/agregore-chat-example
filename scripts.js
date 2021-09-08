@@ -1,4 +1,9 @@
-/* global localStorage */
+/*
+global
+localStorage,
+*/
+
+import Chat from './hypercore-fetch-chat.js'
 
 const {
   urlPrompt,
@@ -12,7 +17,9 @@ const {
   nameChangeButton
 } = window
 
-displayMessage('System', 'Type a message below to send it to available peers', 'system')
+let chat = null
+
+displaySystem('Type a message below to send it to available peers')
 
 if (localStorage.lastURL) {
   chatURLInput.value = localStorage.lastURL
@@ -24,6 +31,8 @@ if (localStorage.username) {
   namePrompt.showModal()
 }
 
+urlPrompt.showModal()
+
 nameChangeButton.addEventListener('click', () => {
   namePrompt.showModal()
 })
@@ -32,23 +41,46 @@ namePrompt.addEventListener('close', () => {
   updateName(chatNameInput.value)
 })
 
-urlPrompt.addEventListener('close', () => {
+urlPrompt.addEventListener('close', async () => {
   const appURL = chatURLInput.value
-  console.log('Connecting to', appURL)
 
   localStorage.lastURL = appURL
+
+  displaySystem(`Connecting to ${appURL}`)
+
+  chat = new Chat(localStorage.lastURL, {
+    username: localStorage.username
+  })
+
+  await chat.open()
+
+  chat.addEventListener('text', onText)
+  chat.addEventListener('identity', onIdentity)
+
+  function onText (e) {
+    const { username, fromID, content } = e
+    const formatted = formatUser(username, fromID)
+    displayMessage(formatted, content, fromID)
+  }
+
+  function onIdentity (e) {
+    const { username, fromID } = e
+    const formatted = formatUser(username, fromID)
+    displaySystem(`Saw new user ${formatted}`)
+  }
 })
 
 inputForm.addEventListener('submit', (e) => {
   e.preventDefault()
-  const text = textInput.value
+  const content = textInput.value
   textInput.value = ''
-  displayMessage(localStorage.username, text, 'self')
+  chat.sendText(content)
 })
 
 urlPrompt.showModal()
 
 function displayMessage (username, text, additional = '') {
+  console.log(username, text, additional)
   const messageElement = messageTemplate.content.cloneNode(true)
 
   messageElement.querySelector('.message-username').innerText = username
@@ -61,9 +93,18 @@ function displayMessage (username, text, additional = '') {
   historyBox.appendChild(messageElement)
 }
 
+function displaySystem(content) {
+  displayMessage('System', content, 'system')
+}
+
 function updateName (username) {
   localStorage.username = username
   nameChangeButton.innerText = username
   chatNameInput.value = localStorage.username
-  displayMessage('System', `Set your username to ${username}`, 'system')
+  displaySystem(`Set your username to ${username}`)
+  if (chat) chat.username = username
+}
+
+function formatUser (username, fromID) {
+  return `${username}@${fromID.slice(0, 8)}`
 }
