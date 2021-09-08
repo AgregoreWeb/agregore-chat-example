@@ -14,7 +14,9 @@ const {
   messageTemplate,
   namePrompt,
   chatNameInput,
-  nameChangeButton
+  nameChangeButton,
+  aboutBox,
+  aboutButton
 } = window
 
 let chat = null
@@ -32,6 +34,11 @@ if (localStorage.username) {
 }
 
 urlPrompt.showModal()
+
+aboutButton.addEventListener('click', (e) => {
+  e.preventDefault(true)
+  aboutBox.showModal()
+})
 
 nameChangeButton.addEventListener('click', () => {
   namePrompt.showModal()

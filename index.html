@@ -11,6 +11,19 @@
 	</dl>
 </template>
 
+<dialog id="aboutBox">
+  <h1>Agregore Chat Example</h1>
+  <p>
+   This uses the <a href="https://hypercore-protocol.org/">Hypercore Protocol</a> to connect people together and gossip messages between them with zero infrastructure.
+  </p>
+  <p>
+    You can find the source code <a href="https://github.com/AgregoreWeb/agregore-chat-example">here</a>. Everything is licensed under AGPL-3.0
+  </p>
+  <form method="dialog">
+    <button>Close</button>
+  </form>
+</dialog>
+
 <dialog id="urlPrompt">
   Enter the hyper:// URL for your chat.
 	<form method="dialog">
@@ -32,6 +45,7 @@
 	<form id="inputForm">
 		<input id="textInput" placeholder="Enter your message here">
 		<button>Send</button>
+		<button id="aboutButton" title="About" type="button">?</button>
 	</form>
 	<button id="nameChangeButton">Anonymous</button>
 </main>

@@ -29,6 +29,10 @@ main {
 	right: var(--theme-padding);
 }
 
+#aboutButton {
+  margin-left: var(--theme-padding);
+}
+
 #historyBox {
 	flex: 1;
 	overflow-y: auto;
